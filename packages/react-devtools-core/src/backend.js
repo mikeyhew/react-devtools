@@ -58,7 +58,7 @@ function connectToDevTools(options: ?ConnectOptions) {
 
   var messageListeners = [];
   var closeListeners = [];
-  var uri = 'ws://' + host + ':' + port;
+  var uri = 'wss://' + host + ':' + port;
   var ws = new window.WebSocket(uri);
   ws.onclose = handleClose;
   ws.onerror = handleClose;
