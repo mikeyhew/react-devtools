@@ -102,12 +102,16 @@
                 );
             }
             window.devtools = devtools;
+            try {
             window.server = devtools
                 .setContentDOMNode(document.getElementById('container'))
                 .setStatusListener(function(status) {
                     document.getElementById('loading-status').innerText = status;
                 })
                 .startServer(port);
+            } catch(err) {
+                alert("Error starting server: " + err.toString() + '\n' + err.stack);
+            }
         </script>
     </body>
 </html>
