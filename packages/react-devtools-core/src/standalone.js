@@ -110,7 +110,7 @@ function initialize(socket) {
 
 var restartTimeout = null;
 function startServer(port = 8097) {
-  var httpServer = require('https').createServer();
+  var httpServer = require('https').createServer({});
   var server = new ws.Server({server: httpServer});
   var connected = false;
   server.on('connection', (socket) => {
