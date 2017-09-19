@@ -1,3 +1,23 @@
+# Note from @mikeyhew
+
+This is a fork of react-devtools that makes the electron app listen over https instead of http, letting you access it from inside an https iframe.
+
+To install:
+
+```
+git clone https://github.com/mikeyhew/react-devtools
+cd react-devtools
+npm install
+cd packages/react-devtools
+npm install -g .
+```
+
+Now you should be able to run the app with `react-devtools`. It will take several seconds to start up, because it needs to generate a self-signed SSL certificate. In the future, it should only do this once and cache the certificate on the filesystem, but for now it generates a new certificate every time.
+
+To use this in Google Chrome, make sure you enable the insecure localhost flag at chrome://flags/#allow-insecure-localhost.
+
+---
+
 # React Developer Tools [![Build Status](https://travis-ci.org/facebook/react-devtools.svg?branch=master)](https://travis-ci.org/facebook/react-devtools)
 
 React Developer Tools lets you inspect the React component hierarchy, including component props and state.
