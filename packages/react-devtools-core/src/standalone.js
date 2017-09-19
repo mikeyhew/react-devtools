@@ -19,6 +19,8 @@ var Panel = require('../../../frontend/Panel');
 var launchEditor = require('./launchEditor');
 var React = require('react');
 var ReactDOM = require('react-dom');
+var selfsigned = require('selfsigned');
+var spdy = require('spdy');
 
 var node = null;
 var onStatusChange = function noop() {};
@@ -108,9 +110,73 @@ function initialize(socket) {
   reload();
 }
 
+function createServer() {
+  var pems = selfsigned.generate(
+    [{name: 'commonName', value: 'localhost'}],
+    {
+      algorithm: 'sha256',
+      days: 30,
+      keySize: 2048,
+      extensions: [{
+        name: 'basicConstraints',
+        cA: true
+      }, {
+        name: 'keyUsage',
+        keyCertSign: true,
+        digitalSignature: true,
+        nonRepudiation: true,
+        keyEncipherment: true,
+        dataEncipherment: true
+      }, {
+        name: 'subjectAltName',
+        altNames: [
+          {
+            // type 2 is DNS
+            type: 2,
+            value: 'localhost'
+          },
+          {
+            type: 2,
+            value: 'localhost.localdomain'
+          },
+          {
+            type: 2,
+            value: 'lvh.me'
+          },
+          {
+            type: 2,
+            value: '*.lvh.me'
+          },
+          {
+            type: 2,
+            value: '[::1]'
+          },
+          {
+            // type 7 is IP
+            type: 7,
+            ip: '127.0.0.1'
+          },
+          {
+            type: 7,
+            ip: 'fe80::1'
+          }
+        ]
+      }]
+    }
+  );
+
+  return spdy.createServer({
+    key: pems.private,
+    cert: pems.cert,
+    spdy: {
+      protocols: ['h2, http/1.1']
+    }
+  })
+}
+
 var restartTimeout = null;
 function startServer(port = 8097) {
-  var httpServer = require('https').createServer({});
+  var httpServer = createServer();
   var server = new ws.Server({server: httpServer});
   var connected = false;
   server.on('connection', (socket) => {

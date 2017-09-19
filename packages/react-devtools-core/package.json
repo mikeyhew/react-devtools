@@ -24,7 +24,9 @@
   "author": "Jared Forsyth",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "selfsigned": "git+https://github.com/mikeyhew/selfsigned.git#upgrade-forge-0.7",
     "shell-quote": "^1.6.1",
+    "spdy": "^3.4.7",
     "ws": "^2.0.3"
   },
   "devDependencies": {
