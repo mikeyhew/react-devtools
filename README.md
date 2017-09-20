@@ -1,4 +1,4 @@
-# Note from @mikeyhew
+# Note about this fork
 
 This is a fork of react-devtools that makes the electron app listen over https instead of http, letting you access it from inside an https iframe.
 
