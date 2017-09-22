@@ -14,7 +14,7 @@ npm install -g .
 
 Now you should be able to run the app with `react-devtools`. It will take several seconds to start up, because it needs to generate a self-signed SSL certificate. In the future, it should only do this once and cache the certificate on the filesystem, but for now it generates a new certificate every time.
 
-To use this in Google Chrome, make sure you enable the insecure localhost flag at chrome://flags/#allow-insecure-localhost.
+To use this in Google Chrome, make sure you enable the insecure localhost flag at [chrome://flags/#allow-insecure-localhost](chrome://flags/#allow-insecure-localhost).
 
 ---
 
